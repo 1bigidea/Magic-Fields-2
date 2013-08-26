@@ -1,5 +1,5 @@
 jQuery(document).ready(function($) {
-  //Custom Validataion methods
+  //Custom Validataion methods 
   jQuery.validator.addMethod( "lowercase", function(value, element) {
     return this.optional(element) || /^[0-9a-z\_]+$/.test(value);
   },'Only  are accepted lowercase characters,numbers or underscores');
@@ -14,7 +14,7 @@ jQuery(document).ready(function($) {
     name = $('#posttype-type').val();
     id = $('#posttype-id').val();
     var status = 0;
-
+     
      jQuery.ajax({
        url: ajaxurl,
        type: 'POST',
@@ -38,7 +38,7 @@ jQuery(document).ready(function($) {
 
     return false;
   });
-
+  
   //validation custom group
   $('#addCustomGroup').submit(function(){
     name = $("#custom_group_name").val();
@@ -68,9 +68,9 @@ jQuery(document).ready(function($) {
       return true;
 
     return false;
-
+        
   });
-
+  
   //validation custom field
   $('#addCustomField').submit(function(){
     name = $("#customfield-name").val();
@@ -98,10 +98,10 @@ jQuery(document).ready(function($) {
     }
     if(status)
       return true;
-
-    return false;
+      
+    return false;    
   });
-
+  
   //validation custom taxonomy
   $('#addCustomTaxonomy').submit(function(){
     type = $("#custom-taxonomy-type").val();
@@ -128,13 +128,13 @@ jQuery(document).ready(function($) {
     }
     if(status)
       return true;
-
-    return false;
+      
+    return false;    
   });
-
-  //Confirm for display a confirm box
+  
+  //Confirm for display a confirm box 
   $('.mf_confirm').click(function() {
-    message = $(this).attr('alt');
+    message = $(this).attr('alt');     
 
     return confirm_message(message);
   });
@@ -172,11 +172,11 @@ jQuery(document).ready(function($) {
 
 });
 
-suggestCustomFieldName = function(){
+function suggestCustomFieldName(){
   if (jQuery('#customfield-label').length > 0 && jQuery('#customfield-name').length > 0 && jQuery("#customfield-name").val() == '') {
     jQuery('#customfield-label').stringToSlug({
       space:'_',
-      getPut:'#customfield-name',
+      getPut:'#customfield-name', 
       prefix:jQuery('#name_group_slug').val() + " ",
       replace:/\s?\([^\)]*\)/gi
     });
@@ -192,8 +192,8 @@ confirm_message = function(message) {
   }
 }
 
-load_link_in_media_upload = function(){
-
+function load_link_in_media_upload(){
+ 
   jQuery('a.del-link').each(function(){
     id = jQuery(this).next().attr('id');
     check_repet = jQuery(this).prev().attr('class');
@@ -203,13 +203,13 @@ load_link_in_media_upload = function(){
       if(check == "" || check == undefined ){}else{
         set = parent.window.mf_js.mf_image_media_set;
         jQuery(this).before('<a href="#" class="mf_media_upload button" onclick="mf_set_image_field(\''+id+'\'); return false;">'+set+'</a>');
-        jQuery(this).parent().find("input:submit").remove();
+        jQuery(this).parent().find("input:submit").remove();        
       }
     }
   });
 }
 
-mf_set_image_field = function(id){
+function mf_set_image_field(id){
   id_element = parent.window.mf_field_id;
   jQuery.post(parent.window.mf_js.mf_url+"admin/MF_ImageMedia.php", { "image_id": id, 'field_id': id_element },
      function(data){
@@ -230,18 +230,18 @@ jQuery(document).ready(function($){
     if (check){
       set = parent.window.mf_js.mf_image_media_set;
       $(this).before('<a href="#"  class="mf_media_upload button" onclick="mf_set_image_field(\''+id+'\'); return false;">'+set+'</a>');
-      $(this).parent().find("input:submit").remove();
+      $(this).parent().find("input:submit").remove();        
     }
   });
 
   $(document).on('click', '.update_field_media_upload',function(){
     window.mf_field_id = jQuery(this).attr('id');
   });
-
+	
   $('#set-post-thumbnail , #add_image').click( function(){
     window.mf_field_id = '';
   });
-
+	
   $(document).on('click',".mce_add_image , .mce_add_video , .mce_add_audio , .mce_add_media",function(){
     window.mf_field_id = '';
 	var a = this;
@@ -250,14 +250,14 @@ jQuery(document).ready(function($){
 		tinyMCE.activeEditor = tinyMCE.EditorManager.getInstanceById( a.id.replace('_add_media', '') );
 		wpActiveEditor = a.id.replace('_add_media', '');
 		}, 500 );
-
+		
   });
 });
 
-mf_use_new_image_gallery = function(){
-
-  if (typeof wp === 'undefined' || typeof wp.media === 'undefined') return;
-
+function mf_use_new_image_gallery(){
+	
+  if (typeof wp === 'undefined' || typeof wp.media === 'undefined') return; 
+		
   var _custom_media = true;
   _orig_send_attachment = wp.media.editor.send.attachment;
 
