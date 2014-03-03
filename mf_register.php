@@ -5,11 +5,11 @@
 class mf_register{
 
   public $name = 'mf_register';
-  
+
   function __construct(){
     add_action('init', array( &$this, 'mf_register_custom_taxonomies' ) );
     add_action('init', array( &$this, 'mf_register_post_types' ) );
-    
+
   }
 
   // register post type
@@ -17,7 +17,7 @@ class mf_register{
     global $mf_pt_register,$mf_pt_unique;
 
     $post_types = $this->_get_post_types();
-    
+
     foreach($post_types as $p){
       $p = unserialize($p['arguments']);
 
@@ -43,10 +43,10 @@ class mf_register{
           $option['taxonomies'][] = $k;
         }
       }
-			if(isset($option['has_archive']) && $option['has_archive'] && isset($option['has_archive_slug']) && $option['has_archive_slug'])	
+			if(isset($option['has_archive']) && $option['has_archive'] && isset($option['has_archive_slug']) && $option['has_archive_slug'])
 				$option['has_archive'] = $option['has_archive_slug'];
-			
-			
+
+
       if($option['rewrite'] && $option['rewrite_slug'])
         $option['rewrite'] = array( 'slug' => $option['rewrite_slug'],'with_front' => $option['with_front']);
 
@@ -65,19 +65,19 @@ class mf_register{
       }elseif( !in_array($option['capability_type'],array('post','page')) ){
         $option['capabilities'] = $this->_get_cap($option['capability_type']);
       }
-      
+
       //description
       $option['description'] = $p['core']['description'];
       register_post_type($name,$option);
 
       //add unique post type
-      if ($p['core']['quantity']) {
+      if ( isset($p['core']['quantity']) && $p['core']['quantity'] ) {
         array_push($mf_pt_unique, "edit.php?post_type=".$name);
       }
-     
-     
+
+
     }
-  
+
   }
 
   public function _get_cap($name){
@@ -122,8 +122,8 @@ class mf_register{
 
   }
 
-  /**                                                                         
-   * return all post types                                                    
+  /**
+   * return all post types
    */
   private function _get_post_types(){
     global $wpdb;
@@ -133,8 +133,8 @@ class mf_register{
     return $posttypes;
   }
 
-  /**                                                                        
-   * return all custom_taxonomy                                               
+  /**
+   * return all custom_taxonomy
    */
   private function _get_custom_taxonomies(){
     global $wpdb;
