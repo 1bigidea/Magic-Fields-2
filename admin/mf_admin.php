@@ -80,11 +80,13 @@ class mf_admin {
 
     foreach ( $post_types as $key => $type ) {
       if( $output == 'names' ) {
-        if( $type == 'attachment' ) {
+        if( $type == 'attachment' || $type == 'revision' || $type == 'nav_menu_item'   ) {
           unset($post_types[$key]);
         }
       } else if ($output == 'object' ) {
         unset($post_types['attachment']);
+        unset($post_types['revision']);
+        unset($post_types['nav_menu_item']);
       }
     }
 
@@ -734,7 +736,7 @@ class mf_admin {
     $wpdb->query($sql);
   }
 
-  function mf_unregister_post_type( $post_type ) {
+  public static function mf_unregister_post_type( $post_type ) {
     /* Ideally we should just unset the post type from the array 
        but wordpress 3.2.1 this doesn't work */
 
